@@ -1,0 +1,84 @@
+# ck-sub
+VLESS Reality Subscription
+# ========== Clash / Clash.Meta / OpenClash 配置 ==========
+proxies:
+  - name: "ck-US-AWS"
+    type: vless
+    server: 173.242.119.66
+    port: 15601
+    uuid: 2bf8726c-7d94-4c8c-95f2-d89d1a0a7d18
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: aws.amazon.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: PwQ33xjlQNQDKUstzS5B4MskgPhnPtURf--6U8avdUc
+      short-id: ""
+
+  - name: "ck-US-Cloudflare"
+    type: vless
+    server: 173.242.119.66
+    port: 15601
+    uuid: 2bf8726c-7d94-4c8c-95f2-d89d1a0a7d18
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.cloudflare.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: PwQ33xjlQNQDKUstzS5B4MskgPhnPtURf--6U8avdUc
+      short-id: ""
+
+  - name: "ck-US-Apple"
+    type: vless
+    server: 173.242.119.66
+    port: 15601
+    uuid: 2bf8726c-7d94-4c8c-95f2-d89d1a0a7d18
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.apple.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: PwQ33xjlQNQDKUstzS5B4MskgPhnPtURf--6U8avdUc
+      short-id: ""
+
+proxy-groups:
+  - name: "ck"
+    type: select
+    proxies:
+      - ck-US-AWS
+      - ck-US-Cloudflare
+      - ck-US-Apple
+      - DIRECT
+
+rules:
+  - GEOIP,CN,DIRECT
+  - MATCH,ck
+
+# ========== Shadowrocket（节点 URL） ==========
+# iOS 小火箭可直接复制（包含三条节点）
+vless://2bf8726c-7d94-4c8c-95f2-d89d1a0a7d18@173.242.119.66:15601?encryption=none&flow=xtls-rprx-vision&security=reality&sni=aws.amazon.com&fp=chrome&pbk=PwQ33xjlQNQDKUstzS5B4MskgPhnPtURf--6U8avdUc&type=tcp#ck-US-AWS
+vless://2bf8726c-7d94-4c8c-95f2-d89d1a0a7d18@173.242.119.66:15601?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.cloudflare.com&fp=chrome&pbk=PwQ33xjlQNQDKUstzS5B4MskgPhnPtURf--6U8avdUc&type=tcp#ck-US-Cloudflare
+vless://2bf8726c-7d94-4c8c-95f2-d89d1a0a7d18@173.242.119.66:15601?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.apple.com&fp=chrome&pbk=PwQ33xjlQNQDKUstzS5B4MskgPhnPtURf--6U8avdUc&type=tcp#ck-US-Apple
+
+# ========== Quantumult X 节点 ==========
+# 手动添加格式（可直接导入）
+[vless]
+173.242.119.66:15601, password=2bf8726c-7d94-4c8c-95f2-d89d1a0a7d18, method=none, tls-reality=true, sni=aws.amazon.com, pbk=PwQ33xjlQNQDKUstzS5B4MskgPhnPtURf--6U8avdUc, flow=xtls-rprx-vision, type=tcp, client-fingerprint=chrome, tag=ck-US-AWS
+
+[vless]
+173.242.119.66:15601, password=2bf8726c-7d94-4c8c-95f2-d89d1a0a7d18, method=none, tls-reality=true, sni=www.cloudflare.com, pbk=PwQ33xjlQNQDKUstzS5B4MskgPhnPtURf--6U8avdUc, flow=xtls-rprx-vision, type=tcp, client-fingerprint=chrome, tag=ck-US-Cloudflare
+
+[vless]
+173.242.119.66:15601, password=2bf8726c-7d94-4c8c-95f2-d89d1a0a7d18, method=none, tls-reality=true, sni=www.apple.com, pbk=PwQ33xjlQNQDKUstzS5B4MskgPhnPtURf--6U8avdUc, flow=xtls-rprx-vision, type=tcp, client-fingerprint=chrome, tag=ck-US-Apple
+
+# ========== V2Ray (Base64 订阅) ==========
+# 以下为节点 URL（组合后可 Base64）
+vless://2bf8726c-7d94-4c8c-95f2-d89d1a0a7d18@173.242.119.66:15601?encryption=none&flow=xtls-rprx-vision&security=reality&sni=aws.amazon.com&fp=chrome&pbk=PwQ33xjlQNQDKUstzS5B4MskgPhnPtURf--6U8avdUc&type=tcp
+vless://2bf8726c-7d94-4c8c-95f2-d89d1a0a7d18@173.242.119.66:15601?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.cloudflare.com&fp=chrome&pbk=PwQ33xjlQNQDKUstzS5B4MskgPhnPtURf--6U8avdUc&type=tcp
+vless://2bf8726c-7d94-4c8c-95f2-d89d1a0a7d18@173.242.119.66:15601?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.apple.com&fp=chrome&pbk=PwQ33xjlQNQDKUstzS5B4MskgPhnPtURf--6U8avdUc&type=tcp
